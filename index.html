@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jQuery!</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <p class="paint">Paint Element!</p>
+    
+    <p id="add">add element</p> 
+
+    <div class="wrapper">
+        <p class="remove">Parrafo</p>
+        <p class="remove">Parrafo</p>
+        <p class="remove">Parrafo</p>    
+    </div>
+
+    <button class="show">Show</button>
+    <div class="element-hidden">Element to show</div>
+    
+    <button class="hide">Hide</button>
+    <div class="element-showed">Element to hide</div>
+
+
+    <div class="mouse-events">mouse events square</div>
+
+
+
+    <script>
+    $(document).ready(function (e) {
+        jQuery('.paint').on('click', function () {
+        $(this).css('background', 'yellow');
+        });
+
+        $('#add').on('click', function () {
+        $('.wrapper').append("<p class='remove'> Hola! </p>");
+        });
+
+        $(document).on('click', '.wrapper p', function () {
+        $(this).css('color', 'blue');
+        });
+
+        $(document).on('dblclick', '.remove' ,function () {
+        $(this).remove();
+        });
+
+        $('.element-hidden').hide();
+
+        $('.show').on('click', function () {
+            $('.element-hidden').show();
+        });
+        
+        $('.hide').on('click', function () {
+            $('.element-showed').hide();
+        });
+
+        $('.mouse-events').on('mouseenter', function () {
+            console.log('mousecenter done');
+        });
+        
+        $('.mouse-events').on('mouseleave', function () {
+            console.log('mouseleave done');
+        });
+        $('mouse-events').on('mouseover', function () {
+            console.log('mouseover done');
+        });
+    })
+    
+    
+    
+    </script>
+
+    <style>
+    .mouse-events {
+        border: 1px solid black;
+        padding: 33px;
+        margin: 11px;
+    }
+    </style>
+</body>
+</html>
