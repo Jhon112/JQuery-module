@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ajax calls</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        li {
+            list-style: none;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <h1>Ajax calls</h1>
+
+
+    <div class="dog-form">
+        <h1>Pick your pet!</h1>
+        <form action="">
+            <select name="picker" id="picker">
+                
+            </select>
+            <input type="submit" value="submit">        
+        </form>
+
+        <ul class="imagenes">
+        </ul>
+
+
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        var razasGet = $.ajax({
+            method: "GET",
+            url: ("https://dog.ceo/api/breeds/list/all")
+        })
+        razasGet.done(function (data) {
+            var razas = (data.message);            
+            $.each(razas, function (key, value) {
+                $("#picker").append(`<option value="${key}">${key}</option>`)                            
+            })
+            
+        })
+            
+        $("form").submit(function (event) {
+            event.preventDefault();
+            $(".imagenes").html("")
+            var breed = $("select[name='picker']").val();
+
+            var pets = $.ajax({
+            method: "GET",
+            url: ("https://dog.ceo/api/breed/" + breed + "/images")
+            })
+
+            pets.done(function (data) {
+               var imgs = (data.message);
+               imgs.slice(0,10).forEach(element => {
+                   $(".imagenes").append(`<li><img height="100" width="100" src='${element}' alt=''></li>`)
+               });;                
+            })
+        })
+        
+
+        // var requestAjax = $ajax({
+        //     method: "GET",
+        //     url: "https://dog.ceo/api/bred/african/images"
+        // })
+
+        // var requestJQuery = $get("https://dog.ceo/api/bred/african/images")
+
+        // requestAjax.done(function (data) {
+        //     console.log(data);
+        // }).fail(function (data) {
+        //     console.log("Algo salio mal");
+        //     console.log(data.responseJSON);
+        // }).always(function () {
+        //     console.log("Siempre se ejecuta (jQuery")
+        // })
+
+    </script>
+
+
+
+
+</body>
+
+</html>
